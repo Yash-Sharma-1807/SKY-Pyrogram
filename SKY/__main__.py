@@ -14,20 +14,31 @@ Copyright (c) 2022 Yash-Sharma-1807
    limitations under the License.
    """
 
+import importlib
+import sys
 from pyrogram import idle
 import asyncio
 from SKY import app
+from SKY.module import z
+sys.dont_write_bytecode=True
 
+loop = asyncio.get_event_loop()
 
 async def main():
+    global HELPABLE
+    print("Starting BOT")
+    
+
     try :
-        await app.start()
+        
+        for all_mods in z:
+            x = importlib.import_module("SKY.module" + all_mods)
+        print("Sucessfully loaded all modules"+str(x))
         await app.send_message(-1001623932405, text = "Hello There Bitches")
-        print("App Started Sucessfully")
-        await idle()
+        print("BOT Started Sucessfully")
     except :
         print("App Didn't Start")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop.run_until_complete(main())
 
