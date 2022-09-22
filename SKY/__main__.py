@@ -33,7 +33,7 @@ async def main():
         
         for all_mods in z:
             x = importlib.import_module("SKY.module" + all_mods)
-        print("Sucessfully loaded all modules"+str(x))
+        print("Sucessfully loaded all modules")
         await app.send_message(-1001623932405, text = "Hello There Bitches")
         print("BOT Started Sucessfully")
     except :
