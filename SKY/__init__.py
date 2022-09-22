@@ -9,4 +9,3 @@ TK = Config.BOT_TOKEN
 
 
 app = Client("SKY",api_id= ID, api_hash= HASH, bot_token= TK)
-
