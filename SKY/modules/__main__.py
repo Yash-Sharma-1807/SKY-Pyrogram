@@ -13,22 +13,3 @@ Copyright (c) 2022 Yash-Sharma-1807
    See the License for the specific language governing permissions and
    limitations under the License.
    """
-
-from os.path import dirname , isfile
-import glob
-
-def all_mod():
-    x = dirname(__file__)
-    y = glob.glob(x + "/*.py")
-    
-    all_mods = [
-        (((f.replace(x, "")).replace("\\", "."))[:-3])
-        for f in y
-        if isfile(f)
-        and f.endswith(".py")
-        and not f.endswith("__init__.py")]
-    return all_mods
-
-z = sorted(all_mod())
-
-__all__ = z + ["ALL_MODULES"]

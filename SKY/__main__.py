@@ -15,30 +15,46 @@ Copyright (c) 2022 Yash-Sharma-1807
    """
 
 import importlib
-import sys
 from pyrogram import idle
 import asyncio
 from SKY import app
-from SKY.module import z
-sys.dont_write_bytecode=True
+from SKY.modules import x
 
 loop = asyncio.get_event_loop()
 
-async def main():
+
+async def start_bot():
     global HELPABLE
-    print("Starting BOT")
+
+    for module in x:
+        imported_module = importlib.import_module("SKY.modules." + module)
+        if (
+                hasattr(imported_module, "__MODULE__")
+                and imported_module.__MODULE__
+        ):
+            imported_module.__MODULE__ = imported_module.__MODULE__
+            if (
+                    hasattr(imported_module, "__HELP__")
+                    and imported_module.__HELP__
+            ):
+                HELPABLE[
+                    imported_module.__MODULE__.replace(" ", "_").lower()
+                ] = imported_module
+    bot_modules = ""
+    j = 1
+    for i in x:
+        if j == 4:
+            bot_modules += "|{:<15}|\n".format(i)
+            j = 0
+        else:
+            bot_modules += "|{:<15}".format(i)
+        j += 1
+    print("Loaded these Modules")
+    print(bot_modules)
+    await app.send_animation(-1001623932405,"https://telegra.ph/file/113a6d5ad54a20917e4df.mp4",caption="I am Alive")
+    await idle()
     
 
-    try :
-        
-        for all_mods in z:
-            x = importlib.import_module("SKY.module" + all_mods)
-        print("Sucessfully loaded all modules")
-        await app.send_message(-1001623932405, text = "Hello There Bitches")
-        print("BOT Started Sucessfully")
-    except :
-        print("App Didn't Start")
-
 if __name__ == "__main__":
-    loop.run_until_complete(main())
+    loop.run_until_complete(start_bot())
 
