@@ -22,4 +22,4 @@ Alive_ani = "https://telegra.ph/file/b21a418fa01eb8b313804.mp4"
 
 @app.on_message(filters.command("alive",prefixes="/"))
 async def alive(_,msg:Message):
-    await msg.reply_text("Well Hello There I am alive")
+    await msg.reply_animation(Alive_ani,"Well Hello There I am alive")
