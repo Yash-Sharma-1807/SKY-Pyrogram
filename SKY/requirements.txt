@@ -1,3 +1,2 @@
 pyrogram
 tgCrypto
-python-telegram-bot[all]
