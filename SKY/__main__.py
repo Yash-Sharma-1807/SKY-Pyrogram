@@ -1,4 +1,4 @@
-
+from pyrogram import idle
 import asyncio
 from SKY import app
 
@@ -8,6 +8,7 @@ async def main():
         await app.start()
         await app.send_message(-1001623932405, text = "Hello There Bitches")
         print("App Started Sucessfully")
+        await idle()
     except :
         print("App Didn't Start")
 
