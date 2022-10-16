@@ -15,19 +15,17 @@ Copyright (c) 2022 Yash-Sharma-1807
    """
 
 
+import datetime
+from SKY import app, uptime
+from pyrogram import filters
+from pyrogram.types import Message
 
-
-# This file will be used as your config vars 
-# get Api id and hash from my.telegram.org
-# Get Bot Token from @BotFather  t.me/BotFather
-
-class Config(object):
-    API_ID = 11596565     # TYPE YOUR API ID HERE  
-    API_HASH = "1aed6f07289d986d60d4f315f00509f8"  # TYPE YOUR API HASH HERE 
-    BOT_TOKEN = "5481410043:AAG1qjPliTgP2_XbbCZFZ3HCtEtl0k4exC0"    # Type your Bot token here
-    Support = -1001623932405 # Type your support group id here
-    OWNER_ID = 5146000168  # Type Owner ID here
-    
-
-
-
+@app.on_message(filters.command("ping"))
+@app.on_edited_message(filters.command("ping"))
+async def ping(_,msg:Message):
+    start_time = datetime.datetime.now()
+    x = await msg.reply_text("Pong..")
+    end_time = datetime.datetime.now()
+    tgping = (end_time - start_time).microseconds / 1000
+    upt = datetime.datetime.utcnow()
+    await x.edit_text("Current Ping : `{}` ms\nCurrent Uptime : `{}`".format(tgping,uptime(upt)))

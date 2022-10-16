@@ -14,14 +14,17 @@ Copyright (c) 2022 Yash-Sharma-1807
    limitations under the License.
    """
 
+
+
+import datetime
 import importlib
-from pyrogram import idle
+from pyrogram import idle, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 import asyncio
-from SKY import app
+from SKY import SUPPORT, app, uptime, BOT_NAME, BOT_USERNAME 
 from SKY.modules import x
-
+from pyrogram.enums.parse_mode import ParseMode
 loop = asyncio.get_event_loop()
-
 
 async def start_bot():
     global HELPABLE
@@ -51,9 +54,27 @@ async def start_bot():
         j += 1
     print("Loaded these Modules")
     print(bot_modules)
-    await app.send_animation(-1001623932405,"https://telegra.ph/file/113a6d5ad54a20917e4df.mp4",caption="I am Alive")
+    await app.send_animation(SUPPORT,"https://telegra.ph/file/c8e5d670ff91438779a5e.mp4",
+        caption="{} has Started".format(BOT_NAME))
     await idle()
     
+
+
+
+
+@app.on_message(filters.command("start") & filters.group)
+async def start(_,msg):
+    Alive_time = datetime.datetime.utcnow()
+    await msg.reply_text("I am Alive \n\nAlive Since : <code>{}</code>".format(uptime(Alive_time)),parse_mode= ParseMode.HTML)
+    
+@app.on_message(filters.command("start") & filters.private)
+async def start(_,msg:Message):
+    Alive_time = datetime.datetime.utcnow()
+    await msg.reply_text("Hello There I am {} \nAlive Since : {}".format(BOT_NAME,uptime(Alive_time)),
+        reply_markup= InlineKeyboardMarkup(
+            [
+                    [InlineKeyboardButton("Add Me To Your Group",url= "https://t.me/SKYXRobot?startgroup=true"),]
+            ]))
 
 if __name__ == "__main__":
     loop.run_until_complete(start_bot())
